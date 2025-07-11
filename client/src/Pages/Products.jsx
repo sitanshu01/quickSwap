@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import Cards from '../Components/Cards.jsx'
 import LoadingAnim from '../Components/LoadingAnim.jsx'
-import Navbar from '../Components/Navbar';
 import axios from 'axios'
 
 const Products = () => {
   const [products, setProducts] = useState([]);
 
   const fetchProduct = async()=>{
-    const response = await axios.get('/routes/products');
-    setProducts(response.data);
+    const res = await axios.get('/routes/products');
+    setProducts(res.data);
   }
 
   useEffect(()=>{
@@ -19,7 +18,6 @@ const Products = () => {
   return (
     <>
     <LoadingAnim/>
-    <Navbar/>
     <div className='h-max min-h-screen w-full py-5 px-3 bg-zinc-900 text-white flex justify-center items-start flex-wrap gap-4'>
       {(!products)?(
         <h1>Loading Products...</h1>

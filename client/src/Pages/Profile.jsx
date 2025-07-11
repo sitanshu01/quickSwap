@@ -1,7 +1,6 @@
 import React,{ useState } from 'react'
 import axios from 'axios';
 import { useEffect } from 'react';
-import Navbar from '../Components/Navbar';
 import LoadingAnim from '../Components/LoadingAnim';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -44,15 +43,36 @@ const Profile = () => {
     }
   }
 
+  const handleDelete= async()=>{
+    try {
+      const res = await axios.get(`routes/delete/${userData._id}`);
+      alert(res.data.message);
+      navigate('/');
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const logout = async()=>{
+    try {
+      const res = await axios.get('routes/logout');
+      alert(res.data.message);
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <>
     <LoadingAnim/>
-    <Navbar/>
     <div className='h-max min-h-screen w-full bg-slate-900 text-white p-4'>
       <div className='flex flex-col justify-start items-start h-full w-full'>
         <div className='text-3xl font-boldonse p-3 flex gap-3'>
           <div className='h-10 w-10 rounded-[50%] bg-red-400 '></div>
           <div>{userData.username}</div>
+          <button onClick={handleDelete} className= "text-2xl px-3 py-2 rounded-md font-barlow bg-red-600 text-white">Delete User</button>
+          <button onClick={logout} className= "text-2xl px-3 py-2 rounded-md font-barlow bg-blue-600 text-white">Logout</button>
         </div>
         <form className='m-2 flex flex-col gap-2 w-1/3 h-1/2 p-3 bg-slate-500 rounded-lg' onSubmit={addProduct} method='post'>
           <input className='w-full outline-none bg-slate-700 h-10 py-3 px-2 rounded-md ' autoComplete='off' type="text" value={itemName} name='itemName' placeholder='Product Name' onChange={(e)=>{setItemName(e.target.value)}}/>
@@ -87,6 +107,7 @@ const Profile = () => {
           )}
       </div>
       </div>
+      
     </div>
     </>
   )

@@ -3,7 +3,7 @@ import Button from './Button';
 
 const Navbar = () => {
   return (
-    <div className='w-full h-max py-1 px-3 flex justify-between items-center backdrop-blur-xl fixed z-10 top-0'>
+    <div className='w-full h-max py-1 px-3 flex justify-between items-center bg-zinc-800 sticky z-10 top-0'>
       <div className='h-10 w-10 text-white font-light text-2xl flex-2/3'>
         {/* <img className='fit h-full ' src="" alt="" /> */}
           <div className='w-'><Button type="normal" size="small" text="Home"/></div>
