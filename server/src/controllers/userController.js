@@ -78,7 +78,7 @@ const userProfile = async (req,res)=>{
     let user = req.user;
     // if(user) console.log("found user ", user);
     try{
-        let userProfile = await users.findById(user._id);
+        let userProfile = await users.findById(user._id).populate('products');
         // console.log("new request by:", userProfile);
         res.status(201).json(userProfile);
     } catch(err){
@@ -102,8 +102,8 @@ const deleteUser = async(req,res)=>{
 
 const item = async(req,res)=>{
     try {
-        const item = await products.findById(req.params.id);
-        res.status(201).json({message: "item found successfully"});
+        const product = await products.findById(req.params.id);
+        res.status(201).json({message: "item found successfully", product});
     } catch (err) {
         console.error(err);
         res.status(500).json({message : "item not found", errorMsg : err.message});

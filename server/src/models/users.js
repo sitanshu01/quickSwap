@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     },
     password : String,
     products : [
-        {type: mongoose.Schema.Types.ObjectId, ref : "product"}
+        {type: mongoose.Schema.Types.ObjectId, ref : "products"}
     ]
 }, {timestamps : true})
 

@@ -1,8 +1,14 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const Cards = ({img,productName, price, category}) => {
+const Cards = ({id,img,productName, price, category}) => {
+  const navigate = useNavigate();
+  const click= ()=>{
+    console.log(id);
+    navigate(`/product/${id}`)
+  }
   return (
-    <div className='shadow-lg shadow-zinc-500/40 h-[20rem] w-[15rem] p-2 bg-neutral-300 rounded-md flex flex-col justify-start items-center text-black hover:scale-105 ease-in-out duration-200'>
+    <div onClick={click} className='shadow-lg shadow-zinc-500/40 h-[20rem] w-[15rem] p-2 bg-neutral-300 rounded-md flex flex-col justify-start items-center text-black hover:scale-105 ease-in-out duration-200'>
       <div className='w-full h-2/3 bg-slate-700 rounded-md'>
         <img src={`${img}`} alt={`${productName} image`} className='object-cover w-full h-full rounded-md' />
       </div>
