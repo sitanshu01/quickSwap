@@ -5,7 +5,7 @@ import LoadingAnim from '../Components/LoadingAnim';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cards from '../Components/Cards';
-
+import Dialog from '../Components/Dialogue';
 
 const Profile = () => {
   const [userData, setUserData] = useState("");
@@ -71,8 +71,8 @@ const Profile = () => {
         <div className='text-3xl font-boldonse p-3 flex gap-3'>
           <div className='h-10 w-10 rounded-[50%] bg-red-400 '></div>
           <div>{userData.username}</div>
-          <button onClick={handleDelete} className= "text-2xl px-3 py-2 rounded-md font-barlow bg-red-600 text-white">Delete User</button>
           <button onClick={logout} className= "text-2xl px-3 py-2 rounded-md font-barlow bg-blue-600 text-white">Logout</button>
+          <Dialog text="Delete" messageTitle="Delete the account?" message="Do you really want to delete your account" function1={handleDelete} />
         </div>
         <form className='m-2 flex flex-col gap-2 w-1/3 h-1/2 p-3 bg-slate-500 rounded-lg' onSubmit={addProduct} method='post'>
           <input className='w-full outline-none bg-slate-700 h-10 py-3 px-2 rounded-md ' autoComplete='off' type="text" value={itemName} name='itemName' placeholder='Product Name' onChange={(e)=>{setItemName(e.target.value)}}/>
