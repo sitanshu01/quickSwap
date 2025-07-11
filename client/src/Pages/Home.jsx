@@ -7,6 +7,7 @@ import LoadingAnim from '../Components/LoadingAnim';
 import Button from '../Components/Button';
 import Cards from '../Components/Cards';
 import Navbar from '../Components/Navbar';
+import Cursor from '../Components/Cursor';
 
 const Home = () => {
   const subRef= useRef();
@@ -23,7 +24,7 @@ const Home = () => {
       const sub = SplitText.create(subRef.current, {
         type : "chars"
       })
-      const title = SplitText.create(titleRef.current, {
+      let title = SplitText.create(titleRef.current, {
         type : "chars"
       })
     
@@ -76,9 +77,10 @@ const Home = () => {
 
   return (
     <>
-    <Navbar/>
+    <Cursor/>
     <div className='h-max w-full overflow-hidden bg-black '>
       <LoadingAnim />
+      
       <div ref={backRef} className='h-screen w-full pt-15'>
         <div className='w-full h-full flex flex-col justify-baseline gap-10 items-center relative'>
           <h1 ref={subRef} className=' text-zinc-300 font-[100] font-barlow tracking-wider text-2xl'>ISTE Summer Project Presents:</h1>
