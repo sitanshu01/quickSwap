@@ -16,16 +16,14 @@ const Login = () => {
         return;
       }
       try {
-        const res = await axios.post("/routes/register", {
+        const res = await axios.post("/routes/login", {
           username,
           password
         }, {
           withCredentials: true
         });
         alert(res.data.message);
-        console.log("About to navigate to /home");
         navigate('/');
-        console.log("Navigation called");
       } catch (error) {
         console.error(error);
       }

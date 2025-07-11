@@ -12,7 +12,6 @@ const Home = () => {
   const subRef= useRef();
   const titleRef= useRef();
   const btnRef= useRef();
-  const swapRef = useRef();
   const backRef = useRef();
   const hello = useRef();
   gsap.registerPlugin(SplitText);
@@ -25,7 +24,7 @@ const Home = () => {
         type : "chars"
       })
       const title = SplitText.create(titleRef.current, {
-        type : "words"
+        type : "chars"
       })
     
     const tl = gsap.timeline();
@@ -43,64 +42,35 @@ const Home = () => {
         autoAlpha : 0,
         delay : 3,
       })
-      tl.from(title.words[0], {
-        duration:0.7,
-        x: -100,
+      tl.from(title.chars, {
+        duration:2,
+        y : 100,
         stagger : {
           amount : 0.6,
-          from : "random"
+          from : "first"
         },
-        ease: "bounce.in",
+        ease: "elastic.out(1,0.5)",
         autoAlpha : 0,
-      })
-      tl.from(title.words[1], {
-        duration:0.5,
-        y: -100,
-        stagger : {
-          amount : 0.6,
-          from : "random"
-        },
-        ease: "bounce.Out",
-        autoAlpha : 0,
-        
       })
       tl.from(btnRef.current, {
-        duration:0.5,
+        duration:1,
         y: 100,
-        scale:0.1,
         stagger : {
           amount : 0.2,
           from : "random"
         },
-        ease: "power3.out",
+        ease : "elastic.out(1,0.5)",
         autoAlpha : 0,
       })
     })
       gsap.to(hello.current, {
         x: "-50%",
-        duration: 10,
+        duration: 13,
         ease: "none",
         repeat: -1,
       });
   })
 
-   let i=1;
-    const mouseEnter = (newText)=>{
-        if(i>=2) return;
-        gsap.to(swapRef.current, {
-            duration:1,
-            scrambleText:{
-                text: newText,
-                chars : "$xD",
-                speed: 0.3,
-                oldClass : "text-md"
-            },  
-        })
-        i++
-    }
-    const mouseLeave = ()=>{
-        i = i-1
-    }
 
 
 
@@ -109,10 +79,10 @@ const Home = () => {
     <Navbar/>
     <div className='h-max w-full overflow-hidden bg-black '>
       <LoadingAnim />
-      <div ref={backRef} className='h-screen w-full flex justify-center items-start pt-15'>
-        <div className=' flex flex-col justify-center gap-10 items-center relative'>
-          <h1 ref={subRef} className=' text-zinc-300 font-[100] font-banger tracking-wider text-2xl'>ISTE Summer Project Presents:</h1>
-          <h1 ref={titleRef} className='text-gray-500 font-extrabold font-boldonse text-[10rem]  tracking-tight'> <span className='text-stroke '>QUICK</span><span ref={swapRef} onMouseEnter={()=>{mouseEnter("SWAP")}} onMouseLeave={mouseLeave} > SWAP</span></h1>
+      <div ref={backRef} className='h-screen w-full pt-15'>
+        <div className='w-full h-full flex flex-col justify-baseline gap-10 items-center relative'>
+          <h1 ref={subRef} className=' text-zinc-300 font-[100] font-barlow tracking-wider text-2xl'>ISTE Summer Project Presents:</h1>
+          <h1 ref={titleRef} className='text-slate-100 font-extrabold font-boldonse text-[10rem]  tracking-tight'>Quick__Swap</h1>
           <div className='flex justify-around gap-5 mt-8 items-center'>
             <Button ref={btnRef} type="normal" glow="glow" size="large" text="Buy"/>
             <Button ref={btnRef} type="normal" glow="glow" size ="large"text="Sell"/>

@@ -8,6 +8,7 @@ const register = async(req,res)=>{
     let user = await  users.findOne({email});
     if(user) {
         console.log("user already exists");
+        res.status(500).json({message: "user already exists"});
     }else{
         bcrypt.genSalt(10, (err,salt)=>{
             bcrypt.hash(password, salt, async(err, hash)=>{
@@ -26,14 +27,13 @@ const register = async(req,res)=>{
                 } catch (error) {
                     console.error(error);
                     res.status(500).json({message: "Error creating user"});
-
                 }
             })
         })
     }
 }
 
-const postProduct = async(req,res)=>{
+const addProduct = async(req,res)=>{
     let {name, category, price} = req.body;
     let user = req.user;
     let newProduct  = await products.create({
@@ -44,7 +44,7 @@ const postProduct = async(req,res)=>{
     });
     user.products.push(newProduct._id);
     await user.save();
-    res.status(201).json({message : "product saved successfully"})
+    res.status(201).json({message : "product saved successfully", newProduct})
 }
 
 const login = async(req,res)=>{
@@ -69,19 +69,45 @@ const logout = (req,res)=>{
     res.redirect('/');
 }
 
-const allUsers = async(req,res)=>{
-    let user = await users.find();
-    res.json(user);
+const allProduct = async(req,res)=>{
+    let product = await products.find();
+    res.json(product);
 }
+
+const userProfile = async (req,res)=>{
+    let user = req.user;
+    // if(user) console.log("found user ", user);
+    try{
+        let userProfile = await users.findById(user._id);
+        // console.log("new request by:", userProfile);
+        res.status(201).json(userProfile);
+    } catch(err){
+        console.error(err);
+        res.status(500).json({message : "some error occured", errorMsg : err.message});
+    }
+}
+
 
 const deleteUser = async(req,res)=>{
     try {
         await users.findByIdAndDelete(req.params.id);
-        res.cookie("token", "")
+        res.cookie("token", "");
+        res.status(201).json({message: "user deleted successfully"});
     } catch (error) {
-        
+        console.error(err);
+        res.status(500).json({message : "some error occured", errorMsg : err.message});
     }
 
 }
 
-export {register, postProduct, login, logout, allUsers, deleteUser};
+const item = async(req,res)=>{
+    try {
+        const item = await products.findById(req.params.id);
+        res.status(201).json({message: "item found successfully"});
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({message : "item not found", errorMsg : err.message});
+    }
+}
+
+export {register, addProduct, login, logout, allProduct, deleteUser,userProfile,item};

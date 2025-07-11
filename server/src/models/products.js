@@ -5,8 +5,8 @@ const productSchema = new mongoose.Schema({
     category : String,
     price : Number,
     user: [
-        {type: mongoose.Schema.Types.ObjectId, ref : "users"}
+        {type: mongoose.Schema.Types.ObjectId, ref : "user"}
     ],
 }, {timestamps : true})
 
-export default mongoose.model("product", productSchema);
+export default mongoose.model("products", productSchema);
