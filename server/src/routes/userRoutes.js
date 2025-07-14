@@ -10,7 +10,7 @@ router.post('/addProduct', isLoggedIn ,addProduct);
 router.get('/profile', isLoggedIn, userProfile);
 router.post('/register', register);
 router.post('/login', login);
-router.get('/logout', logout);
+router.get('/logout', isLoggedIn, logout);
 router.get('/deleteUser/:id',isLoggedIn ,deleteUser);
 
 export default router;

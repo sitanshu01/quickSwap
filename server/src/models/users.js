@@ -6,6 +6,10 @@ const userSchema = new mongoose.Schema({
     email : {
         type: String,
         unique : true,
+        match:[
+            /^\d{2}[a-z]{3}\d{3}@nith\.ac\.in$/,
+            "Only NITH mails are valid.."
+        ]
     },
     password : String,
     products : [

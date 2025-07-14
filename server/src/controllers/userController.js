@@ -5,6 +5,11 @@ import bcrypt from 'bcrypt';
 
 const register = async(req,res)=>{
     let {name, username, email, password} = req.body;
+    const emailPattern = /^\d{2}[a-z]{3}\d{3}@nith\.ac\.in$/;
+    if(!emailPattern.test(email)){
+        res.status(400).json({message: "Invalid email type."})
+        return;
+    }
     let user = await  users.findOne({email});
     if(user) {
         console.log("user already exists");
@@ -101,9 +106,10 @@ const deleteUser = async(req,res)=>{
 }
 
 const item = async(req,res)=>{
+    const id = req.params.id;
     try {
-        const product = await products.findById(req.params.id);
-        res.status(201).json({message: "item found successfully", product});
+        const product = await products.findById(id).populate('user');
+        res.status(201).json(product);
     } catch (err) {
         console.error(err);
         res.status(500).json({message : "item not found", errorMsg : err.message});

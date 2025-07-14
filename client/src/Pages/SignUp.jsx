@@ -11,10 +11,16 @@ const SignUp = () => {
   const [password,setPassword] = useState("");
   const navigate = useNavigate();
 
+  const emailPattern = /^\d{2}[a-z]{3}\d{3}@nith\.ac\.in$/;
   const submit = async(e)=>{
       e.preventDefault();
       if (!name.trim() || !username.trim() || !email.trim() || !password.trim()) {
         alert("All fields are required.");
+        return;
+      }
+      //email type validation
+      if(!emailPattern.test(email)){
+        alert("Enter a valid NITH mail id..");
         return;
       }
       try {
@@ -27,9 +33,8 @@ const SignUp = () => {
           withCredentials: true
         });
         alert(res.data.message);
-        console.log("About to navigate to /home");
         navigate('/');
-        console.log("Navigation called");
+        
       } catch (error) {
         console.error(error);
       }
