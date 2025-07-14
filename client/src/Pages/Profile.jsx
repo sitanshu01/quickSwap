@@ -9,7 +9,7 @@ import Dialog from '../Components/Dialogue';
 
 const Profile = () => {
   const [userData, setUserData] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(100);
   const [itemName, setItemName] = useState("");
   // const [edit,setEdit] = useState(false);
   const categoryRef = useRef();
@@ -46,7 +46,7 @@ const Profile = () => {
 
   const handleDelete= async()=>{
     try {
-      const res = await axios.get(`routes/delete/${userData._id}`);
+      const res = await axios.delete(`routes/delete/${userData._id}`);
       alert(res.data.message);
       navigate('/');
     } catch (error) {
@@ -91,7 +91,7 @@ const Profile = () => {
             <form className='m-2 flex flex-col gap-2 justify-between w-full p-3 h-9/10 bg-slate-500 rounded-lg' onSubmit={addProduct} method='post'>
               <h1 className='text-2xl font-poppins font-bold px-2'>Add Your Products</h1>
               <input className='w-full outline-none bg-slate-700 py-3 px-2 rounded-md ' autoComplete='off' type="text" value={itemName} name='itemName' placeholder='Product Name' onChange={(e)=>{setItemName(e.target.value)}}/>
-              <input className='w-full outline-none bg-slate-700 py-3 px-2 rounded-md ' autoComplete='off' type="number" value={price} name='price' placeholder='Price' onChange={(e)=>{setPrice(e.target.value)}} />
+              <input className='w-full outline-none bg-slate-700 py-3 px-2 rounded-md ' autoComplete='off' type="number" value={price} name='price' min="10" placeholder='Price' onChange={(e)=>{setPrice(e.target.value)}} />
               <div className='flex w-full justify-between'>
                 <label htmlFor="Category">Category: </label>
                 <select ref={categoryRef} className='outline-none' name="category" id="category">

@@ -51,12 +51,12 @@ const Cards = ({id,img,productName, price, category, isOwn, isWish}) => {
       <div className='w-full h-1/3 p-2'>
         <NavLink to={`/products/${id}`} className='text-xl font-medium'>{productName}</NavLink>
         <div className='flex w-full justify-between'>
-          <h3 className='font-medium'>${price}</h3>
+          <h3 className='font-medium'>₹{price}</h3>
           <h3 className='font-light text-sm'>{category}</h3>
         </div>
         <div className='flex justify-between border-t-1 border-zinc-600'>
           <button onClick={(isWish) ? deleteWish :(isOwn)? deleteProduct: chatOwner } className='text-xl font-bold'>{isOwn || isWish? '🗑️': '💬'}</button>
-          <button onClick={addWishlist} className='text-xl font-bold'>♥️</button>
+          <button onClick={addWishlist} className={`${isOwn ? 'hidden' : 'block'} text-xl font-bold`}>♥️</button>
         </div>
       </div>
       <div></div>

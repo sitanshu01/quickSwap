@@ -164,12 +164,12 @@ const deleteProduct = async(req,res)=>{
     const productId = req.params.id;
     try {
         await users.updateOne(
-            {id: user._id},
+            {_id: user._id},
             {$pull : {products: productId}},
         )
         res.status(200).json({message: "Deleted Successfully!"});
     } catch (error) {
-        console.log(error);
+        res.status(500).json({message:"something went wrong"});
     }
 }
 
