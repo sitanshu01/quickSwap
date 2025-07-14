@@ -14,6 +14,9 @@ const userSchema = new mongoose.Schema({
     password : String,
     products : [
         {type: mongoose.Schema.Types.ObjectId, ref : "products"}
+    ],
+    wishlist : [
+        {type: mongoose.Schema.Types.ObjectId , ref : "products"}
     ]
 }, {timestamps : true})
 

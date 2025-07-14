@@ -15,9 +15,16 @@ const Item = () => {
             console.log(error);
         }
     }
+
+    const addWishlist = async()=>{
+        const res = await axios.post(`/routes/addWishlist/${id}`);
+        alert(res.data.message);
+    }
+
     useEffect(()=>{
         fetchProduct();
     },[])
+    
   return (
     <>
     <LoadingAnim/>
@@ -42,8 +49,8 @@ const Item = () => {
                 )}
                 <button onClick={()=>{console.log(product.user.name)}} className='bg-neutral-700 text-white font-poppins font-medium text-2xl px-3 py-2 rounded-xl'>Chat Owner</button>
                 <div className='w-full flex justify-between border-t-5 border-zinc-400'>
-                    <button className='text-5xl font-bold'>🛒</button>
-                    <button className='text-5xl font-bold'>♥️</button>
+                    <button className='text-5xl font-bold'>💬</button>
+                    <button onClick={addWishlist} className='text-5xl font-bold'>♥️</button>
                 </div>
                 
         </div>

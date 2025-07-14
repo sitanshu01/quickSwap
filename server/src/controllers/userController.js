@@ -116,4 +116,61 @@ const item = async(req,res)=>{
     }
 }
 
-export {register, addProduct, login, logout, allProduct, deleteUser,userProfile,item};
+const addWishlist = async(req,res)=>{
+    const user = req.user;
+    const productId = req.params.id;
+    try {
+        if(user.products.includes(productId)){
+            return res.status(400).json({message: "Users can't add their own products"});
+        }else if(user.wishlist.includes(productId)){
+            return res.status(401).json({message: "Product already in the wishlist"})
+        }
+        user.wishlist.push(productId);
+        await user.save();
+        res.status(201).json({message: "added successfully"});
+    } catch (error) {
+        res.status(501).json({message: error.message})
+        console.log(error);
+    }
+}
+
+const wishlist = async(req,res)=>{
+    const user = req.user;
+    try {
+        const wishlist = await users.findById(user._id).populate('wishlist');
+        res.status(201).json(wishlist);
+    } catch (error) {
+        res.status(500).json({message: "wishlist already added"});
+        console.error(error)
+    }
+}
+
+const deleteWishlist = async(req,res)=>{
+    const user = req.user;
+    const productId = req.params.id;
+    try {
+       await users.updateOne(
+        { _id: user._id },
+        { $pull: { wishlist: productId } }
+    );
+        res.status(200).json({message : "Removed Successfully"});
+    } catch (error) {
+        res.status(500).json({message:"something went wrong"});
+    }
+}
+
+const deleteProduct = async(req,res)=>{
+    const user = req.user;
+    const productId = req.params.id;
+    try {
+        await users.updateOne(
+            {id: user._id},
+            {$pull : {products: productId}},
+        )
+        res.status(200).json({message: "Deleted Successfully!"});
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export {register, addProduct, login, logout, allProduct, deleteUser,userProfile,item, addWishlist, wishlist, deleteWishlist, deleteProduct};

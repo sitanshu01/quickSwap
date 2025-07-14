@@ -9,6 +9,7 @@ import Profile from './Pages/Profile.jsx'
 import Navbar from './Components/Navbar.jsx'
 import Cursor from './Components/Cursor.jsx'
 import Item from './Pages/Item.jsx'
+import Wishlist from './Pages/Wishlist.jsx'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
       <Route path='/profile' element ={<Profile/>}/>
       <Route path='/products' element ={<Products/>}/>
       <Route path='/products/:id' element ={<Item/>}/>
+      <Route path='/wishlist' element ={<Wishlist/>}/>
     </Routes>
     </>
   )
