@@ -7,7 +7,9 @@ const Products = () => {
   const [products, setProducts] = useState([]);
 
   const fetchProduct = async()=>{
-    const res = await axios.get('/routes/products');
+    const res = await axios.get('http://localhost:3000/routes/products');
+
+
     setProducts(res.data);
   }
 
@@ -16,6 +18,7 @@ const Products = () => {
   },[])
 
   return (
+    
     <>
     <LoadingAnim/>
     <div className='h-max min-h-screen w-full py-5 px-3 bg-zinc-900 text-white flex justify-center items-start flex-wrap gap-4'>
