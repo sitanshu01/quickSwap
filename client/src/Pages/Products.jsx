@@ -34,7 +34,7 @@ const Products = () => {
             productName={product.name}
             price={product.price}
             category={product.category}
-            img="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=873&auto=format&fit=crop"
+            // img="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=873&auto=format&fit=crop"
           />
         ))
       )}
